@@ -1161,6 +1161,13 @@ div.excerpt-intro  a{
         color: #2BB7E0;
     font-size: 24px;
 }
+div.excerpt-intro{
+    margin-top: 38px;
+}
+div.excerpt-featured-home{
+    font-size: 15px;
+    color: #7C7C81
+}
 .header_top{
     width: 992px;
     margin:auto;
@@ -1182,7 +1189,10 @@ div.excerpt-featured {
 }
 div.featured-home-content{
     background: #ffffff;
-    min-height: 400px;
+    min-height: 410px;
+}
+div.featured-video{
+    max-height: 410px;
 }
 div.featured-video > div.vc_column-inner {
     padding-left: 0;
@@ -1192,7 +1202,22 @@ div.featured-home-content > div.vc_column-inner {
     padding: 0px 47px;
 }
 div.featured-article-video > div{
-    margin-top: -20px !important;
+    margin-top: -74px !important;
+}
+div.header_top{
+        line-height: 64px;
+    height: 64px;
+}
+ul#menu-top-header > li > a{
+    color:#ffffff;
+}
+ul#menu-main-menu > li > a{
+    color: #7C7C81;
+    text-transform: capitalize;
+    font-size: 17px;
+}
+div.learn-more > div > a{
+    display: block;
 }
 @media (max-width: 1199px){
     div.phone-number > div{
