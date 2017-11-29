@@ -10,7 +10,7 @@ Template: demma
 @font-face{font-family:"baomoi";src:url("fonts/baomoi_gdi.ttf") format('truetype');}
 @font-face{font-family:"UTM-Neo-Sans-Intel";src:url("fonts/UTM-Neo-Sans-Intel.ttf") format('truetype');}
 @font-face{font-family:"Pe-icon-7-stroke";src:url("fonts/Pe-icon-7-stroke.ttf") format('truetype');}
-body{font-size:13px;color:#333;background: #f1f1f1;font-family: 'UTM-Neo-Sans-Intel'}
+body{font-size:13px;color:#333;background: #ffffff;font-family: 'UTM-Neo-Sans-Intel'}
 table{max-width:100%;}
 p{margin:1em 0;}
 img{max-width:100%;}
@@ -1189,7 +1189,7 @@ div.excerpt-featured {
 }
 div.featured-home-content{
     background: #ffffff;
-    min-height: 410px;
+    min-height: 400px;
 }
 div.featured-video{
     max-height: 410px;
@@ -1216,8 +1216,24 @@ ul#menu-main-menu > li > a{
     text-transform: capitalize;
     font-size: 17px;
 }
+div.learn-more{
+    margin-top: 26px;
+    text-align: center;
+}
 div.learn-more > div > a{
-    display: block;
+        display: block;
+    width: 85px;
+    border: 1px solid #2BB7E0;
+    font-size: 15px;
+    color: #2BB7E0;
+    padding:6px 16px;
+}
+div.learn-more > div > a:hover{
+    background: #2BB7E0;
+    color:#ffffff;
+}
+.content, .content .container, .full_width{
+    background: #ffffff
 }
 @media (max-width: 1199px){
     div.phone-number > div{
