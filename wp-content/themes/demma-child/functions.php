@@ -34,20 +34,143 @@ function zendvn_theme_register_style(){
 	wp_register_style('slick-theme', site_url( 'wp-content/themes/demma-child/slick/slick-theme.css', null ),array(),'1.0','all');
 	wp_enqueue_style('slick-theme');
 }
-// SHORTCODE WITH PARAMETER
+// article on content-bottom
+function showArticleOnContentBottom($attrs){
+	ob_start();        	
+	extract(
+		shortcode_atts(
+			array(
+				'category' => '',			
+			), 
+			$atts 
+		)
+	);	
+	$args = array(  		
+		'category_name' => 	$category,
+        'posts_per_page' => 3, 
+        'order'   => 'DESC', 
+        'post_type' => 'post'
+    );
+	$query = new WP_Query($args);		
+	if($query->have_posts()){		
+		echo '<div class="article-content-bottom">';
+		while ($query->have_posts()) {
+			$query->the_post();		
+			$post_id=$query->post->ID;							
+			$permalink=get_the_permalink($post_id);
+			$title=get_the_title($post_id);
+			$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
+			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
+			?>
+			<div class="vc_col-lg-4 no-padding">
+				<div class="relative">
+					<div class="article-by-right-column-title-2"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>
+					<div><img src="<?php echo $featureImg; ?>"></div>
+				</div>
+			</div>			
+			<?php						
+		}
+		wp_reset_postdata();  
+		echo '<div class="clr"></div>';
+		echo '</div>';		
+	}
+}
+add_shortcode('article_on_contentbottom', 'showArticleOnContentBottom');
+// article by date
+function showArticleByDate($attrs){
+	ob_start();        	
+	extract(
+		shortcode_atts(
+			array(
+				'category' => '',			
+			), 
+			$atts 
+		)
+	);	
+	$args = array(  		
+		'category_name' => 	$category,
+        'posts_per_page' => 3, 
+        'order'   => 'DESC', 
+        'post_type' => 'post'
+    );
+	$query = new WP_Query($args);		
+	if($query->have_posts()){		
+		echo '<div class="article-by-month-year">';
+		while ($query->have_posts()) {
+			$query->the_post();		
+			$post_id=$query->post->ID;							
+			$permalink=get_the_permalink($post_id);
+			$title=get_the_title($post_id);
+			$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
+			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
+			?>
+			<div>
+				<div class="article-m-y-title"><?php echo $title; ?></div>													
+				<div class="article-m-y-excerpt"><?php echo $excerpt; ?></div>				
+			</div>			
+			<?php						
+		}
+		wp_reset_postdata();  
+		echo '</div>';		
+	}
+}
+add_shortcode('article_by_date', 'showArticleByDate');
+// article by right column
+function showArticleByRightColumn($attrs){
+	ob_start();        	
+	extract(
+		shortcode_atts(
+			array(
+				'category' => '',			
+			), 
+			$atts 
+		)
+	);	
+	$args = array(  		
+		'category_name' => 	$category,
+        'posts_per_page' =>1, 
+        'order'   => 'DESC', 
+        'post_type' => 'post'
+    );
+	$query = new WP_Query($args);		
+	if($query->have_posts()){		
+		echo '<div class="article-by-right-column">';
+		while ($query->have_posts()) {
+			$query->the_post();		
+			$post_id=$query->post->ID;							
+			$permalink=get_the_permalink($post_id);
+			$title=get_the_title($post_id);
+			$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
+			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
+			?>
+			<div class="relative">
+				<div class="article-by-right-column-title"><a href="<?php echo $permalink ?>"><?php echo $title; ?></a></div>
+				<div><img src="<?php echo $featureImg; ?>"></div>
+			</div>			
+			<?php						
+		}
+		wp_reset_postdata();  
+		echo '</div>';		
+	}
+}
+add_shortcode('article_by_right_column', 'showArticleByRightColumn');
+// article homeslider
 function showArticleHomeSlider($atts){ 
-	ob_start();        
-	extract( 
-		shortcode_atts( array (
-			'category' => '',
-		), $atts ) );
+	ob_start();        	
+	extract(
+		shortcode_atts(
+			array(
+				'category' => '',			
+			), 
+			$atts 
+		)
+	);	
 	$args = array(  
-                                 //slug danh mục                                 
-		'category_name' => $category,
-                                'posts_per_page' => 4, // SỐ POST /PAGE
-                                'order'   => 'ASC', // ORDER THEO THỨ TỰ 
-                                'post_type' => 'post' // POST TYPE
-                            );
+		'category_name' => 	$category,
+        'posts_per_page' => 4, 
+        'order'   => 'ASC', 
+        'post_type' => 'post'
+    );
 	$query = new WP_Query($args);		
 	if($query->have_posts()){		
 		echo '<div class="home-slick">';
@@ -56,7 +179,7 @@ function showArticleHomeSlider($atts){
 			$post_id=$query->post->ID;							
 			$permalink=get_the_permalink($post_id);
 			$title=get_the_title($post_id);
-			$content=substr(get_the_content($post_id), 0,600).'...' ;    
+			$excerpt=substr(get_the_excerpt( $post_id ), 0,600).'...';			
 			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
 			?>
 			<div>
@@ -66,7 +189,7 @@ function showArticleHomeSlider($atts){
 				<div class="vc_col-lg-7">	
 					<div class="seperator-slick"></div>				
 					<div class="title-slick-home"><?php echo $title; ?></div>													
-					<div class="excerpt-slick-home"><?php echo $content; ?></div>													
+					<div class="excerpt-slick-home"><?php echo $excerpt; ?></div>													
 				</div>				
 			</div>			
 			<?php						
@@ -75,5 +198,13 @@ function showArticleHomeSlider($atts){
 		echo '</div>';
 	}
 }
-add_shortcode('showArticleHomeSlider', 'showArticleHomeSlider');
-// SHORTCODE WITH PARAMETER
+add_shortcode('article_home_slider', 'showArticleHomeSlider');
+function Custom_footer_shortcode() {
+        $my_postid = 192;//This is page id or post id
+        $content_post = get_post($my_postid);
+        $content = $content_post->post_content;
+        $content = apply_filters('the_content', $content);
+        $content = str_replace(']]>', ']]&gt;', $content);
+        echo $content;
+}
+add_shortcode( 'Custom_footer_shortcode', 'Custom_footer_shortcode' );
