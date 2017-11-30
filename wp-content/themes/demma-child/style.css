@@ -10,6 +10,7 @@ Template: demma
 @font-face{font-family:"baomoi";src:url("fonts/baomoi_gdi.ttf") format('truetype');}
 @font-face{font-family:"UTM-Neo-Sans-Intel";src:url("fonts/UTM-Neo-Sans-Intel.ttf") format('truetype');}
 @font-face{font-family:"Pe-icon-7-stroke";src:url("fonts/Pe-icon-7-stroke.ttf") format('truetype');}
+@font-face{font-family:"MyriadPro";src:url("fonts/MyriadPro-Regular.otf") ;}
 body{font-size:13px;color:#333;background: #ffffff;font-family: 'UTM-Neo-Sans-Intel'}
 table{max-width:100%;}
 p{margin:1em 0;}
@@ -1234,6 +1235,35 @@ div.learn-more > div > a:hover{
 }
 .content, .content .container, .full_width{
     background: #ffffff
+}
+div.men-teacher-left > div.vc_column-inner {
+    padding-left: 0 ;
+    padding-right: 0;
+}
+div.home-slick{
+    text-align:justify;
+}
+div.seperator-slick{
+        background-color: #7C7C81;
+    width: 50px;
+    height: 2px;
+    margin-top: 112px;       
+}
+div.title-slick-home{
+    margin-top: 47px;
+    font-family : 'MyriadPro';
+    font-size :25px;
+     text-transform: uppercase;
+    color : #7C7C81;  
+}
+div.excerpt-slick-home{
+    margin-top: 40px;
+    font-family :'MyriadPro';
+    font-size : 13px;
+    color : #7C7C81;    
+}
+div.featured-news{
+    margin-top: 117px
 }
 @media (max-width: 1199px){
     div.phone-number > div{
