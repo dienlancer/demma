@@ -198,6 +198,19 @@ function showArticleHomeSlider($atts){
 		echo '</div>';
 	}
 }
+function showLogoSocialIcon(){
+	?>
+	<div class="logo-content-bottom-2"><img src="<?php echo site_url( 'wp-content/uploads/logo-content-bottom.png', null ); ?>" /></div>
+<div class="social">
+<ul>
+<li><a href="index.php"><span><i class="fa fa-facebook" aria-hidden="true"></i></span></a></li>
+<li><a href="index.php"><span><i class="fa fa-twitter" aria-hidden="true"></i></span></a></li>
+<li><a href="index.php"><span><i class="fa fa-linkedin" aria-hidden="true"></i></span></a></li>
+</ul>
+</div>
+	<?php
+}
+add_shortcode( 'logo_social_icon', 'showLogoSocialIcon');
 add_shortcode('article_home_slider', 'showArticleHomeSlider');
 function Custom_footer_shortcode() {
         $my_postid = 192;//This is page id or post id

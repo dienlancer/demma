@@ -1368,17 +1368,91 @@ div.gasoline  ul > li > div:nth-child(2) > div:nth-child(2){
   color : #666666;
 }
 div.logo-content-bottom{
-    padding:  26px 0px;
+    padding:  20px 0px;
+}
+div.logo-content-bottom-2  img{
+    width: 160px;
 }
 div.logo-content-bottom img{
-    width: 150px;
+    width: 160px;
 }
-div.bottom{
-    height: 400px;
+div.ramus > ul > li{
+    color: #ffffff
+}
+div.office{
+    margin-top: 40px;
+}
+footer{
+   
     background: -webkit-linear-gradient(left, #9CBFF8 ,#ffffff);
     background: -o-linear-gradient(right, #9CBFF8 ,#ffffff);
     background: -moz-linear-gradient(right,#9CBFF8 , #ffffff);
     background: linear-gradient(to right, #9CBFF8 , #ffffff);
+}
+div.ramus > ul > li{
+    margin-left: 0px;
+}
+div.ramus > ul > li > a{
+    color: #ffffff
+}
+div.social{
+    margin-top: 30px;
+}
+div.tb-dress{
+    margin-top: 70px;
+}
+.footer_top.footer_top_full{
+    padding:0px 24px 
+}
+.footer_top_holder{
+    background: transparent;
+}
+.footer_bottom_holder{
+    background: transparent;
+}
+div.social > ul{
+    list-style: none;
+}
+div.social > ul > li{
+    float: left;
+}
+div.social > ul > li > a > span{
+    display: block;
+    background: #ffffff;
+    border-radius: 20px;
+    color: #9CBFF8;
+    width: 40px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+}
+div.social > ul > li:first-child{
+    margin-left: 0;
+}
+h3.h3-content-bottom{
+     font-family: 'MyriadPro';
+  font-size : 15px;
+
+  color : #FFFFFF;
+text-transform: capitalize;
+
+}
+div.tb-dress > div{
+    padding-bottom: 35px;
+    border-bottom: 2px solid #ffffff;
+}
+div.footer_bottom_holder{
+   
+
+}
+div.textwidget{
+    margin:0;
+}
+div.footer_bottom{
+     font-family: 'UTM-Neo-Sans-Intel';
+    color: #FFFFFF;
+    font-size: 15px;
 }
 @media (max-width: 1199px){
     div.phone-number > div{
