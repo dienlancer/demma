@@ -1257,10 +1257,10 @@ div.title-slick-home{
     color : #7C7C81;  
 }
 div.excerpt-slick-home{
-    margin-top: 40px;
-    font-family :'MyriadPro';
-    font-size : 13px;
-    color : #7C7C81;    
+        
+    font-family: 'MyriadPro';
+    font-size: 13px;
+    color: #7C7C81;
 }
 div.featured-news{
     margin-top: 117px

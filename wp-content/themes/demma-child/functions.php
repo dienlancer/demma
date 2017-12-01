@@ -156,48 +156,30 @@ function showArticleByRightColumn($attrs){
 add_shortcode('article_by_right_column', 'showArticleByRightColumn');
 // article homeslider
 function showArticleHomeSlider($atts){ 
-	ob_start();        	
-	extract(
-		shortcode_atts(
-			array(
-				'category' => '',			
-			), 
-			$atts 
-		)
-	);	
-	$args = array(  
-		'category_name' => 	$category,
-        'posts_per_page' => 4, 
-        'order'   => 'ASC', 
-        'post_type' => 'post'
-    );
-	$query = new WP_Query($args);		
-	if($query->have_posts()){		
-		echo '<div class="home-slick">';
-		while ($query->have_posts()) {
-			$query->the_post();		
-			$post_id=$query->post->ID;							
-			$permalink=get_the_permalink($post_id);
-			$title=get_the_title($post_id);
-			$excerpt=substr(get_the_excerpt( $post_id ), 0,600).'...';			
-			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
-			?>
-			<div>
-				<div class="vc_col-lg-5">
-					<img src="<?php echo $featureImg; ?>" />
-				</div>
-				<div class="vc_col-lg-7">	
-					<div class="seperator-slick"></div>				
-					<div class="title-slick-home"><?php echo $title; ?></div>													
-					<div class="excerpt-slick-home"><?php echo $excerpt; ?></div>													
-				</div>				
-			</div>			
-			<?php						
-		}
-		wp_reset_postdata();  
-		echo '</div>';
-	}
+	?>
+	<div class="home-slick">
+		<div>
+			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-1.png', null ); ?>" /></div>
+			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-2.png', null ); ?>" /></div>
+			<div class="vc_col-lg-4">
+				<div class="seperator-slick"></div>			
+				<div class="title-slick-home">Modern membrane technologies</div>													
+				<div class="excerpt-slick-home">For de-centralized applications</div>			
+			</div>
+		</div>
+		<div>
+			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-3.png', null ); ?>" /></div>
+			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-4.png', null ); ?>" /></div>
+			<div class="vc_col-lg-4">
+				<div class="seperator-slick"></div>			
+				<div class="title-slick-home">Modern membrane technologies</div>													
+				<div class="excerpt-slick-home">For de-centralized applications</div>			
+			</div>
+		</div>
+	</div>	
+	<?php
 }
+add_shortcode('article_home_slider', 'showArticleHomeSlider');
 function showLogoSocialIcon(){
 	?>
 	<div class="logo-content-bottom-2"><img src="<?php echo site_url( 'wp-content/uploads/logo-content-bottom.png', null ); ?>" /></div>
@@ -211,7 +193,7 @@ function showLogoSocialIcon(){
 	<?php
 }
 add_shortcode( 'logo_social_icon', 'showLogoSocialIcon');
-add_shortcode('article_home_slider', 'showArticleHomeSlider');
+
 function Custom_footer_shortcode() {
         $my_postid = 192;//This is page id or post id
         $content_post = get_post($my_postid);
