@@ -15,7 +15,7 @@ function header_script_code(){
 		jQuery(document).ready(function(){
 jQuery(".home-slick").slick({
 	dots: true,
-	autoplay:true,
+	autoplay:false,
 	arrows:false
 });  
 		});
@@ -42,7 +42,7 @@ function showArticleOnContentBottom($attrs){
 			array(
 				'category' => '',			
 			), 
-			$atts 
+			$attrs
 		)
 	);	
 	$args = array(  		
@@ -84,9 +84,10 @@ function showArticleByDate($attrs){
 			array(
 				'category' => '',			
 			), 
-			$atts 
+			$attrs
 		)
 	);	
+
 	$args = array(  		
 		'category_name' => 	$category,
         'posts_per_page' => 3, 
@@ -117,13 +118,14 @@ function showArticleByDate($attrs){
 add_shortcode('article_by_date', 'showArticleByDate');
 // article by right column
 function showArticleByRightColumn($attrs){
+	
 	ob_start();        	
 	extract(
 		shortcode_atts(
 			array(
 				'category' => '',			
 			), 
-			$atts 
+			$attrs
 		)
 	);	
 	$args = array(  		
@@ -155,29 +157,69 @@ function showArticleByRightColumn($attrs){
 }
 add_shortcode('article_by_right_column', 'showArticleByRightColumn');
 // article homeslider
-function showArticleHomeSlider($atts){ 
-	?>
-	<div class="home-slick">
-		<div>
-			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-1.png', null ); ?>" /></div>
-			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-2.png', null ); ?>" /></div>
-			<div class="vc_col-lg-4">
-				<div class="seperator-slick"></div>			
-				<div class="title-slick-home">Modern membrane technologies</div>													
-				<div class="excerpt-slick-home">For de-centralized applications</div>			
-			</div>
-		</div>
-		<div>
-			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-3.png', null ); ?>" /></div>
-			<div class="vc_col-lg-4"><img src="<?php echo site_url( 'wp-content/uploads/technology-demma-4.png', null ); ?>" /></div>
-			<div class="vc_col-lg-4">
-				<div class="seperator-slick"></div>			
-				<div class="title-slick-home">Modern membrane technologies</div>													
-				<div class="excerpt-slick-home">For de-centralized applications</div>			
-			</div>
-		</div>
-	</div>	
-	<?php
+function showArticleHomeSlider($attrs){ 
+	ob_start();        	
+	extract(
+		shortcode_atts(
+			array(
+				'category' => '',			
+			), 
+			$attrs
+		)
+	);	
+	$arrCategory=explode(',', $category);
+	if(count($arrCategory) > 0){
+		echo '<div class="home-slick">';
+		for($i=0;$i<count($arrCategory);$i++){
+			$slug=$arrCategory[$i];
+			$row = get_category_by_slug( $slug);						
+			?>
+			<div>
+				<?php 
+					$args = array(  		
+						'category_name' => 	$slug,
+						'posts_per_page' =>2, 
+						'order'   => 'DESC', 
+						'post_type' => 'post'
+					);
+					$query = new WP_Query($args);					
+					if($query->have_posts()){
+						while($query->have_posts()){
+							$query->the_post();		
+							$post_id=$query->post->ID;							
+							$permalink=get_the_permalink($post_id);
+							$title=get_the_title($post_id);
+							$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
+							$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));								
+							?>
+							<div class="vc_col-lg-4">
+								<div class="relative find-hover-slick">
+									<img src="<?php echo $featureImg; ?>" />
+									<div class="bg-hover-slick">
+										<div>
+											<div class="article-title-child"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>
+											<div class="article-excerpt-child"><?php echo $excerpt; ?></div>
+											<div class="article-readmore-child"><a href="<?php echo $permalink; ?>">Learn more</a></div>											
+										</div>										
+									</div>
+								</div>								
+							</div>							
+							<?php
+						}
+						wp_reset_postdata();  
+					}
+				?>				
+				<div class="vc_col-lg-4">
+					<div class="seperator-slick"></div>			
+					<div class="title-slick-home"><?php echo $row->name; ?></div>													
+					<div class="excerpt-slick-home"><?php echo $row->description; ?></div>			
+				</div>
+				<div class="clr"></div>
+			</div>	
+			<?php
+		}
+		echo '</div>';
+	}		
 }
 add_shortcode('article_home_slider', 'showArticleHomeSlider');
 function showLogoSocialIcon(){

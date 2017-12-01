@@ -1240,9 +1240,7 @@ div.men-teacher-left > div.vc_column-inner {
     padding-left: 0 ;
     padding-right: 0;
 }
-div.home-slick{
-    text-align:justify;
-}
+
 div.seperator-slick{
         background-color: #7C7C81;
     width: 50px;
@@ -1453,6 +1451,68 @@ div.footer_bottom{
      font-family: 'UTM-Neo-Sans-Intel';
     color: #FFFFFF;
     font-size: 15px;
+}
+div.modern-membrane-technologies div.slick-slider{
+    margin-bottom: 0;
+    
+}
+div.modern-membrane-technologies div.slick-dotted{
+    position: relative;
+}
+div.modern-membrane-technologies ul.slick-dots{
+       bottom: 80px;
+    right: 260px;
+    text-align: center;
+    width: 74px;
+}
+div.article-readmore-child > a:hover{
+    background: #ffffff;
+    color: #9CBFF8;
+}
+div.bg-hover-slick{
+   position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #9CBFF8;
+    height: 100%;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    opacity: 0;
+}
+div.article-title-child{
+    margin-top: 40px;
+}
+div.article-title-child > a{
+    font-family: 'UTM-Neo-Sans-Intel';
+    font-weight: bold;
+    font-size: 20px;
+    color: #FFFFFF;
+
+}
+div.article-excerpt-child{
+    margin-top: 25px;
+    color: #ffffff;
+    min-height: 168px;
+    
+}
+div.article-readmore-child{
+    margin-top: 15px;
+}
+div.article-readmore-child > a{
+    display: block;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 4px 15px;
+    width: 75px;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+}
+div.bg-hover-slick > div{
+    padding: 0px 40px;
+}
+div.find-hover-slick:hover > div.bg-hover-slick{
+    opacity: 1;
 }
 @media (max-width: 1199px){
     div.phone-number > div{
