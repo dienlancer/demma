@@ -34,7 +34,43 @@ function zendvn_theme_register_style(){
 	wp_register_style('slick-theme', site_url( 'wp-content/themes/demma-child/slick/slick-theme.css', null ),array(),'1.0','all');
 	wp_enqueue_style('slick-theme');
 }
-// article on content-bottom
+function showArticleOnSideVideo($attrs){
+	ob_start();        	
+	extract(
+		shortcode_atts(
+			array(
+				'category' => '',			
+			), 
+			$attrs
+		)
+	);	
+	$args = array(  		
+		'category_name' => 	$category,
+        'posts_per_page' => 1, 
+        'order'   => 'DESC', 
+        'post_type' => 'post'
+    );
+	$query = new WP_Query($args);		
+	if($query->have_posts()){		
+		echo '<div class="article-side-video">';
+		while ($query->have_posts()) {
+			$query->the_post();		
+			$post_id=$query->post->ID;							
+			$permalink=get_the_permalink($post_id);
+			$title=get_the_title($post_id);
+			$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
+			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
+			?>
+			<div><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>
+			<div><?php echo $excerpt; ?></div>
+			<div><a href="<?php echo $permalink ?>">Learn more</a></div>	
+			<?php						
+		}
+		wp_reset_postdata();  		
+		echo '</div>';		
+	}
+}
+add_shortcode('article_side_video', 'showArticleOnSideVideo');
 function showArticleOnContentBottom($attrs){
 	ob_start();        	
 	extract(
@@ -58,15 +94,22 @@ function showArticleOnContentBottom($attrs){
 			$query->the_post();		
 			$post_id=$query->post->ID;							
 			$permalink=get_the_permalink($post_id);
-			$title=get_the_title($post_id);
+			$title=substr(get_the_title($post_id), 0,50) ;
 			$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
 			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
 			?>
 			<div class="vc_col-lg-4 no-padding">
-				<div class="relative">
-					<div class="article-by-right-column-title-2"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>
+				<div class="relative find-hover-slick content-bottom-box">
+					<div class="article-by-right-column-title"><div><a href="<?php echo $permalink ?>"><?php echo $title; ?></a></div></div>
 					<div><img src="<?php echo $featureImg; ?>"></div>
-				</div>
+					<div class="bg-hover-slick">
+						<div>
+							<div class="article-title-child"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>
+							<div class="article-excerpt-child"><?php echo $excerpt; ?></div>
+							<div class="article-readmore-child"><a href="<?php echo $permalink; ?>">Learn more</a></div>											
+						</div>										
+					</div>
+				</div>		
 			</div>			
 			<?php						
 		}
@@ -106,7 +149,7 @@ function showArticleByDate($attrs){
 			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
 			?>
 			<div>
-				<div class="article-m-y-title"><?php echo $title; ?></div>													
+				<div class="article-m-y-title"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>													
 				<div class="article-m-y-excerpt"><?php echo $excerpt; ?></div>				
 			</div>			
 			<?php						
@@ -130,7 +173,7 @@ function showArticleByRightColumn($attrs){
 	);	
 	$args = array(  		
 		'category_name' => 	$category,
-        'posts_per_page' =>1, 
+        'posts_per_page' =>2, 
         'order'   => 'DESC', 
         'post_type' => 'post'
     );
@@ -139,16 +182,23 @@ function showArticleByRightColumn($attrs){
 		echo '<div class="article-by-right-column">';
 		while ($query->have_posts()) {
 			$query->the_post();		
-			$post_id=$query->post->ID;							
-			$permalink=get_the_permalink($post_id);
-			$title=get_the_title($post_id);
-			$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
-			$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));		       			
+							$post_id=$query->post->ID;							
+							$permalink=get_the_permalink($post_id);
+							$title=get_the_title($post_id);
+							$excerpt=substr(get_the_excerpt( $post_id ), 0,200).'...';			
+							$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));			
 			?>
-			<div class="relative">
-				<div class="article-by-right-column-title"><a href="<?php echo $permalink ?>"><?php echo $title; ?></a></div>
+			<div class="relative find-hover-slick xbox-right">
+				<div class="article-by-right-column-title"><div><a href="<?php echo $permalink ?>"><?php echo $title; ?></a></div></div>
 				<div><img src="<?php echo $featureImg; ?>"></div>
-			</div>			
+				<div class="bg-hover-slick">
+					<div>
+						<div class="article-title-child"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>
+						<div class="article-excerpt-child"><?php echo $excerpt; ?></div>
+						<div class="article-readmore-child"><a href="<?php echo $permalink; ?>">Learn more</a></div>											
+					</div>										
+				</div>
+			</div>		
 			<?php						
 		}
 		wp_reset_postdata();  
@@ -168,11 +218,13 @@ function showArticleHomeSlider($attrs){
 		)
 	);	
 	$arrCategory=explode(',', $category);
+	
 	if(count($arrCategory) > 0){
 		echo '<div class="home-slick">';
 		for($i=0;$i<count($arrCategory);$i++){
 			$slug=$arrCategory[$i];
-			$row = get_category_by_slug( $slug);						
+			$row = get_category_by_slug( $slug);	
+
 			?>
 			<div>
 				<?php 
@@ -193,8 +245,9 @@ function showArticleHomeSlider($attrs){
 							$featureImg=wp_get_attachment_url(get_post_thumbnail_id($post_id));								
 							?>
 							<div class="vc_col-lg-4">
-								<div class="relative find-hover-slick">
-									<img src="<?php echo $featureImg; ?>" />
+								<div class="relative find-hover-slick xbox">
+									<div class="article-by-right-column-title"><div><a href="<?php echo $permalink ?>"><?php echo $title; ?></a></div></div>
+									<div><img src="<?php echo $featureImg; ?>"></div>
 									<div class="bg-hover-slick">
 										<div>
 											<div class="article-title-child"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></div>
